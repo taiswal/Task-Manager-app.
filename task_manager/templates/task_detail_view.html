@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Task Details{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
+    <div class="card shadow" style="max-width: 600px; width: 100%;">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">{{ task.title }}</h4>
+        </div>
+        <div class="card-body">
+            <p class="card-text"><strong>Description:</strong><br> {{ task.description }}</p>
+            <p class="card-text"><strong>Due Date:</strong> {{ task.due_date }}</p>
+            <p class="card-text">
+                <strong>Status:</strong> 
+                <span class="{% if task.is_completed %}text-success{% else %}text-danger{% endif %}">
+                    {{ task.is_completed|yesno:"✅ Completed,❌ Pending" }}
+                </span>
+            </p>
+            <div class="text-end mt-4">
+                <a href="{% url 'update_view' task.id %}" class="btn btn-warning btn-sm">✏️ Edit</a>
+                <a href="{% url 'delete_view' task.id %}" class="btn btn-danger btn-sm">🗑️ Delete</a>
+                <a href="{% url 'task_list_view' %}" class="btn btn-secondary btn-sm">🔙 Back to List</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
